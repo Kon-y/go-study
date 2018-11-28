@@ -2,7 +2,8 @@ package main
 
 // packageをインポートする。
 import {
-	"ftm"
+
+	"fmt"
 	"os"
 	"os/exec"
 }
