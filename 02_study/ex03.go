@@ -3,25 +3,18 @@ package main
 import (
     "fmt"
     "io/ioutil"
-    "encording/json"
+    "encoding/json"
     "os"
 )
 
-type Study struct {
-    Type        string     `json:"type"`
-    Takita      []Takita   `json:"takita`
-}
-
 type Takita struct {
-    Id          string     `json:"id"`
-    Name        string     `json;"name"`
-    Age         string     `json:"age"`
-    Abillity    []Abillity `json:"abillity"`
-}
-
-type Abillity struct {
-    Programming string     `json:"shell"`
-    Operation   string     `json:"argus"`
+    Id          int        `json:"id,string"`
+    Name        string     `json:"name"`
+    Age         int        `json:"age"`
+    Abillity    struct {
+        Programming string `json:"shell"`
+        Operation   string `json:"argus"`
+    } `json:"abillity"`
 }
 
 func main() {
