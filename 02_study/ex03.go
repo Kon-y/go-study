@@ -28,5 +28,6 @@ func main() {
     var fc Item
     json.Unmarshal(raw, %fc)
 
-    for _, ft := range fc.
+    for _, ft := range raw
+    fmt.Printf("%sさん、%s才¥n", p.Id, p.Age)
 }
