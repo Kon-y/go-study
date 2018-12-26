@@ -12,6 +12,7 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	if 
-	fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
+	if %q = "/hello" {
+	fmt.Fprintf(w, "URL.Path = %q web server!\n", r.URL.Path)
+	}		
 }
