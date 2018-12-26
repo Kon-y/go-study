@@ -1,24 +1,17 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
 func main() {
-	url := ""
-	res, err := http.Get(url)
-	if err != nil {
-		panic(err)
-	}
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
-	}
-	buf := bytes.NewBuffer(body)
-	html := buf.String()
-	fmt.Println(html)
+	url := "http://google.co.jp"
+
+	resp, _ := http.Get(url)
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(byteArray)) // htmlをstringで取得
 }
