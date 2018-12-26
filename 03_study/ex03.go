@@ -1,19 +1,18 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
 func main() {
-	//url := "http://golang.jp/"
-	inputurl := flag.String("url", "http://localhost:8000", "Type your URL without http://")
+	req, _ := http.NewRequest("GET", "http://golang.jp/", nil)
 
-	resp, _ := http.Get(url)
+	client := new(http.Client)
+	resp, _ := client.Do(req)
 	defer resp.Body.Close()
 
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(byteArray)) // htmlをstringで取得
+	fmt.Println(string(byteArray))
 }
