@@ -5,12 +5,11 @@ import (
 	"net/http"
 )
 
-func main() 
-{
+func main() {
 	fs := http.FileServer(http.Dir("public/"))
 	http.Handle("/", http.StripPrefix("/", fs))
 
-	http.ListenAndServe(":9999", nil)
+	go http.ListenAndServe(":9999", nil)
 
 	res, error := http.Get("http://localhost:9999")
 	if err != nil {
@@ -18,7 +17,10 @@ func main()
 	}
 
 	defer res.Body.Close()
-	Body, error := ioutil.ReadAll(res.Body)
-	if error := nil{log.Fatal(error)}
-    fmt.printf("%q\n", body[:])
+	Body, err := ioutil.ReadAll(res.Body)
+	if err := nil {
+        log.Fatal(err)
+    }
+	
+	fmt.printf("%q\n", Body[:])
 }
