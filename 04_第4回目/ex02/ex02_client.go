@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	connection, error := net.Dial("tcp", "localhost:10000")
+	connection, error := net.Dial("tcp", "localhost:9999")
 
 	if error != nil {
 		panic(error)
