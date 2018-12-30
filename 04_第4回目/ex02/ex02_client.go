@@ -5,15 +5,20 @@ import (
 	"net/http"
 )
 
-func main() {
+func main() 
+{
 	fs := http.FileServer(http.Dir("public/"))
 	http.Handle("/", http.StripPrefix("/", fs))
 
 	http.ListenAndServe(":9999", nil)
 
-	/* GetメソッドでURLにアクセス */
-	res, err := http.get("http://localhost:9999")
+	res, error := http.Get("http://localhost:9999")
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer res.Body.Close()
+	Body, error := ioutil.ReadAll(res.Body)
+	if error := nil{log.Fatal(error)}
+    fmt.printf("%q\n", body[:])
 }
