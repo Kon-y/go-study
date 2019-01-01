@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 // URLを引数で指定し、実行する場合
@@ -56,4 +57,5 @@ func main() {
 
 	go http.ListenAndServe(":9999", nil)
 	go cli()
+	time.Sleep(time.Second)
 }
