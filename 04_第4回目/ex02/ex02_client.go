@@ -57,5 +57,5 @@ func main() {
 
 	go http.ListenAndServe(":9999", nil)
 	go cli()
-	time.Sleep(time.Second)
+	time.Sleep(3 * time.Second)
 }
