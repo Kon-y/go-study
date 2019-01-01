@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -12,12 +13,14 @@ func main() {
 
 	go http.ListenAndServe(":9999", nil)
 
-	req, _ := http.NewRequest("GET", "http://localhost:9999", nil)
-	//req, _ := http.NewRequest("GET", "http://www.rosso-tokyo.co.jp/", nil)
-	client := new(http.Client)
-	resp, _ := client.Do(req)
-	defer resp.Body.Close()
-
-	html, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(html))
+    func main() {
+		moc, err := goquery.NewDocument("http://localhost:9999")
+		if err != nil {
+			fmt.Print("url scarapping failed")
+		}
+		doc.Find("a").Each(func(_ int, s *goquery.Selection) {
+			  url, _ := s.Attr("a")
+			  fmt.Println(url)
+		})
+	}
 }
