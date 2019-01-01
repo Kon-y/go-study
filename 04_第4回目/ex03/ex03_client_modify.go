@@ -13,11 +13,11 @@ func main() {
 	go http.ListenAndServe(":9999", nil)
 
 	req, _ := http.NewRequest("GET", "http://localhost:9999", nil)
+	//req, _ := http.NewRequest("GET", "http://www.rosso-tokyo.co.jp/", nil)
 	client := new(http.Client)
 	resp, _ := client.Do(req)
 	defer resp.Body.Close()
 
 	html, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println(string(html))
-	//	time.Sleep(time.Second)
 }
