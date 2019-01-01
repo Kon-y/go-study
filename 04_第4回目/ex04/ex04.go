@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -19,11 +18,11 @@ func set(url string) {
 }
 
 func main() {
-	fs := http.FileServer(http.Dir("public/"))
-	http.Handle("/", http.StripPrefix("/", fs))
+	//	fs := http.FileServer(http.Dir("public/"))
+	//	http.Handle("/", http.StripPrefix("/", fs))
 
-	go http.ListenAndServe(":9999", nil)
-	url := "http://localhost:9999"
+	//	go http.ListenAndServe(":9999", nil)
+	url := "https://github.com/trending"
 	set(url)
 	fmt.Printf("Number of [a] tags is %d\n", lines)
 }
