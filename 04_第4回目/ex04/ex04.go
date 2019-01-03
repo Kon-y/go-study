@@ -6,20 +6,35 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-//var lines int = 0
-
-func set(url string) {
+func GetRank(url string) {
 	doc, _ := goquery.NewDocument(url)
-	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
-		url, _ := s.Attr("href")
+	doc.Find("li").Each(func(_ int, s *goquery.Selection) {
+		url, _ := s.Attr("id")
 		fmt.Println(url)
-		//lines += 1
 	})
 }
-/*
+
+func GetStars(urls string) {
+	doc, _ := goquery.NewDocument(urls)
+	doc.Find("span").Each(func(_ int, s *goquery.Selection) {
+		stars, _ := s.Attr("class")
+		func main() {
+			s := ""
+			if len(s) == 0 {
+			fmt.Println("空文字です")
+			} else {
+			fmt.Println("空文字ではありません")
+			}
+		}
+		fmt.Println(stars)
+	})
+}
+
 func main() {
 	url := "https://github.com/trending"
-	set(url)
-	fmt.Printf("Number of [a] tags is %d\n", lines)
+	urls := ""
+	GetRank(url)
+	GetStars(urls)
+	//fmt.Printf("URL: %s, Star: %s\n", url, urls)
+	//	fmt.Printf("Number of [a] tags is %d\n", lines)
 }
-*/
