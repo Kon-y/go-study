@@ -24,26 +24,28 @@ func GetRank(url string) {
 	})
 }
 
-/*
 // stargaxersのURLを取得し、starまで取得してくる。
-func GetStars(url string) {
-	starsnum := 1
-	doc, _ := goquery.NewDocument(url)
+func GetStars(urls string) {
+	doc, _ := goquery.NewDocument(urls)
 	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
-		url_stars, _ := s.Attr("href")
-		if starsnum <= 10 {
-			if strings.Contains(url_stars, "stargazers") {
+		hikakin, _ := s.Attr("aria-label")
+		result := fmt.Sprintln(strings.Contains(hikakin, "starred"))
+		switch result {
+		case "true":
+			fmt.Printf(hikakin)
+		}
 
-			}
-			starsnum++
+		//fmt.Printf(result)
+		if result == "true" {
+			fmt.Printf(hikakin)
 		}
 	})
 }
-*/
 
 func main() {
 	url := "https://github.com/trending"
+	urls := "https://github.com/facebookincubator/fbt/stargazers"
 	GetRank(url)
-	//	GetStars(url)
+	GetStars(urls)
 
 }
