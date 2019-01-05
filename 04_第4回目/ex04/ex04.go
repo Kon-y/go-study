@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -14,7 +15,9 @@ func GetRank(url string) {
 		if trend <= 10 {
 			//　空行を出力させないため、len(url)を使用する。
 			if len(url) > 0 {
-				fmt.Printf("Trend%d位は・・・%s\n", trend, url)
+				// リポ名の頭に「pa-」がつくので、削除する。
+				replace := strings.Replace(url, "pa-", "", 1)
+				fmt.Printf("Trend%d位は	→	%s\n", trend, replace)
 				trend++
 			}
 		}
