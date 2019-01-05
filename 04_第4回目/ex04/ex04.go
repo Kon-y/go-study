@@ -24,6 +24,7 @@ func GetRank(url string) {
 	})
 }
 
+/*
 // stargaxersのURLを取得し、starまで取得してくる。
 func GetStars(url string) {
 	starsnum := 1
@@ -38,9 +39,11 @@ func GetStars(url string) {
 		}
 	})
 }
+*/
 
 func main() {
 	url := "https://github.com/trending"
 	GetRank(url)
-	GetStars(url)
+	//	GetStars(url)
+
 }
