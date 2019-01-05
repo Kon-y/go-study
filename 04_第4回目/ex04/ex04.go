@@ -26,9 +26,9 @@ func GetRank(url string) {
 
 func GetStars(url string) {
 	doc, _ := goquery.NewDocument(url)
-	doc.Find("span").Each(func(_ int, s *goquery.Selection) {
-		stars, _ := s.Attr("class")
-		if len(stars) < 0 {
+	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
+		stars, _ := s.Attr("svg")
+		if len(stars) > 0 {
 			fmt.Println(stars)
 		}
 	})
