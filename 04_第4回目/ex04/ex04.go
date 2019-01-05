@@ -7,34 +7,34 @@ import (
 )
 
 func GetRank(url string) {
+	trend := 1
 	doc, _ := goquery.NewDocument(url)
 	doc.Find("li").Each(func(_ int, s *goquery.Selection) {
 		url, _ := s.Attr("id")
-		fmt.Println(url)
+		if trend <= 10 {
+			//　空行を出力させないため、len(url)を使用する。
+			if len(url) > 0 {
+				fmt.Printf("Trend%d位は・・・%s\n", trend, url)
+				trend++
+			}
+		}
 	})
 }
 
-func GetStars(urls string) {
-	doc, _ := goquery.NewDocument(urls)
+func GetStars(url string) {
+	doc, _ := goquery.NewDocument(url)
 	doc.Find("span").Each(func(_ int, s *goquery.Selection) {
 		stars, _ := s.Attr("class")
-		func main() {
-			s := ""
-			if len(s) == 0 {
-			fmt.Println("空文字です")
-			} else {
-			fmt.Println("空文字ではありません")
-			}
+		if len(stars) < 0 {
+			fmt.Println(stars)
 		}
-		fmt.Println(stars)
 	})
 }
 
 func main() {
 	url := "https://github.com/trending"
-	urls := ""
 	GetRank(url)
-	GetStars(urls)
+	GetStars(url)
 	//fmt.Printf("URL: %s, Star: %s\n", url, urls)
 	//	fmt.Printf("Number of [a] tags is %d\n", lines)
 }
