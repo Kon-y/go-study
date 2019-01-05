@@ -24,12 +24,17 @@ func GetRank(url string) {
 	})
 }
 
+// stargaxersのURLを取得し、starまで取得してくる。
 func GetStars(url string) {
+	starsnum := 1
 	doc, _ := goquery.NewDocument(url)
 	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
-		stars, _ := s.Attr("svg")
-		if len(stars) > 0 {
-			fmt.Println(stars)
+		url_stars, _ := s.Attr("href")
+		if starsnum <= 10 {
+			if strings.Contains(url_stars, "stargazers") {
+
+			}
+			starsnum++
 		}
 	})
 }
@@ -38,6 +43,4 @@ func main() {
 	url := "https://github.com/trending"
 	GetRank(url)
 	GetStars(url)
-	//fmt.Printf("URL: %s, Star: %s\n", url, urls)
-	//	fmt.Printf("Number of [a] tags is %d\n", lines)
 }
