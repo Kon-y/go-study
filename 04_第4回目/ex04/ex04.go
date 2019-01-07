@@ -7,6 +7,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// TrendRankingを出力させる。
 func GetRank(url string) {
 	trend := 1
 	doc, _ := goquery.NewDocument(url)
@@ -24,21 +25,16 @@ func GetRank(url string) {
 	})
 }
 
-// stargaxersのURLを取得し、starまで取得してくる。
+// StargaxersのURLを取得し、starまで取得してくる。
 func GetStars(urls string) {
 	doc, _ := goquery.NewDocument(urls)
 	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
 		hikakin, _ := s.Attr("aria-label")
 		result := fmt.Sprintln(strings.Contains(hikakin, "starred"))
-		switch result {
-		case "true":
+		if result == "true￥n" {
 			fmt.Printf(hikakin)
 		}
 
-		//fmt.Printf(result)
-		if result == "true" {
-			fmt.Printf(hikakin)
-		}
 	})
 }
 
