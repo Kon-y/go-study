@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -25,23 +26,29 @@ func GetRank(url string) {
 	})
 }
 
-// StargaxersのURLを取得し、starまで取得してくる。
-func GetStars(urls string) {
-	doc, _ := goquery.NewDocument(urls)
-	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
-		hikakin, _ := s.Attr("aria-label")
-		result := fmt.Sprintln(strings.Contains(hikakin, "starred"))
-		if result == "true￥n" {
-			fmt.Printf(hikakin)
-		}
+func format(r *regexp.Regexp, target string) string {
+	result := strings.Replace(target, "\n", "", -1)
+	result = strings.Replace(result, " ", "", -1)
+	return result
+}
 
+// StargaxersのURLを取得し、starまで取得してくる。
+func GetStars(url string) {
+	stars := 1
+	doc, _ := goquery.NewDocument(url)
+	doc.Find("div.f6.text-gray.mt-2 > a").Each(func(_ int, s *goquery.Selection) {
+		hikakin, _ := s.Attr("href")
+		if stars <= 10 {
+			if strings.Contains(hikakin, "stargazers") {
+				fmt.Println(format(nil, s.Text()))
+				stars++
+			}
+		}
 	})
 }
 
 func main() {
 	url := "https://github.com/trending"
-	urls := "https://github.com/facebookincubator/fbt/stargazers"
 	GetRank(url)
-	GetStars(urls)
-
+	GetStars(url)
 }
