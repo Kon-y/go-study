@@ -14,8 +14,7 @@ func main() {
 	}
 	defer db.Close() // 関数がリターンする直前に呼び出される
 
-	rows, err := db.Query("SELECT * FROM tasks
-	") //
+	rows, err := db.Query("SELECT * FROM tasks") //
 	if err != nil {
 		panic(err.Error())
 	}
