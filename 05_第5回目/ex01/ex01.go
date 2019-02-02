@@ -3,12 +3,14 @@ package main
 import (
 	"database/sql"
 	"fmt"
+    "os/exec"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-err := exec.Command("docker build -t docker_sample:001 .").Run()
+cmd := exec.Command("docker build -t docker_sample:001 .").Run()
 
+//err := exec.Command("docker run --rm -d --name mysql_001 --hostname mysql_001 -e MYSQL_ROOT_PASSWORD=root docker_sample:001").Run()
 
 func main() {
 	db, _ := sql.Open("mysql", "go_user:go_user@tcp(localhost:3306)/go_apps")
