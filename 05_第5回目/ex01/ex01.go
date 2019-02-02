@@ -7,48 +7,30 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+err := exec.Command("docker build -t docker_sample:001 .").Run()
+
+
 func main() {
-	db, err := sql.Open("mysql", "go_user:@/go_apps")
-	if err != nil {
-		panic(err.Error())
-	}
-	defer db.Close() // 関数がリターンする直前に呼び出される
+	db, _ := sql.Open("mysql", "go_user:go_user@tcp(localhost:3306)/go_apps")
+	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM tasks") //
-	if err != nil {
-		panic(err.Error())
-	}
+	rows, _ := db.Query("SELECT * FROM tasks")
 
-	columns, err := rows.Columns() // カラム名を取得
-	if err != nil {
-		panic(err.Error())
-	}
+	takky, _ := rows.Columns()
+	takky1 := make([]sql.RawBytes, len(takky))
+	takky2 := make([]interface{}, len(takky1))
 
-	values := make([]sql.RawBytes, len(columns))
-
-	//  rows.Scan は引数に `[]interface{}`が必要.
-
-	scanArgs := make([]interface{}, len(values))
-	for i := range values {
-		scanArgs[i] = &values[i]
+	for i := range takky {
+		takky2[i] = &takky[i]
 	}
 
 	for rows.Next() {
-		err = rows.Scan(scanArgs...)
+		err := rows.Scan(takky2...)
 		if err != nil {
-			panic(err.Error())
+			fmt.Printf("Unable to Scan values from Select Query")
 		}
-
-		var value string
-		for i, col := range values {
-			// Here we can check if the value is nil (NULL value)
-			if col == nil {
-				value = "NULL"
-			} else {
-				value = string(col)
-			}
-			fmt.Println(columns[i], ": ", value)
+		for i, col := range takky1 {
+			fmt.Println(takky[i], ":", string(col))
 		}
-		fmt.Println("-----------------------------------")
 	}
 }
