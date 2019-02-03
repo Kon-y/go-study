@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -16,15 +17,50 @@ func main() {
 	}
 	defer ryo.Close()
 
-	/*
-		for rows.Next() {
-			var id int
-			var name string
+	rows, err := ryo.Query("SELECT * FROM tasks")
+	if err != nil {
+		panic(err.Error())
+	}
 
-			if err := rows.Scan(&id, &name); err != nil {
-				panic(err.Error())
-			}
-			fmt.Println(id, name)
+	kon, err := rows.Columns()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	values := make([]sql.RawBytes, len(kon))
+	scanArgs := make([]interface{}, len(values))
+	for i := range values {
+		scanArgs[i] = &values[i]
+	}
+
+	for rows.Next() {
+		err = rows.Scan(scanArgs...)
+		if err != nil {
+			panic(err.Error())
 		}
-	*/
+
+		var value string
+		for i, col := range values {
+			// Here we can check if the value is nil (NULL value)
+			if col == nil {
+				value = "NULL"
+			} else {
+				value = string(col)
+			}
+			fmt.Println(kon[i], ": ", value)
+		}
+		fmt.Println("-----------------------------------")
+	}
 }
+
+/*
+	for rows.Next() {
+		var id int
+		var name string
+
+		if err := rows.Scan(&id, &name); err != nil {
+			panic(err.Error())
+		}
+		fmt.Println(id, name)
+	}
+*/
